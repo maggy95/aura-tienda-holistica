@@ -16,13 +16,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [recentlyViewed, setRecentlyViewed] = useState<number[]>([]);
     const [upsellExpanded, setUpsellExpanded] = useState(true);
-    
-    const { 
-        totalItems, 
-        isCartOpen, 
-        setIsCartOpen, 
-        cart, 
-        totalPrice 
+
+    const {
+        totalItems,
+        isCartOpen,
+        setIsCartOpen,
+        cart,
+        totalPrice
     } = useCart();
 
     useEffect(() => {
@@ -42,9 +42,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         const recentlyViewedProducts = available.filter(p => recentlyViewed.includes(p.id));
         const cartCategories = Array.from(new Set(cart.map(item => item.category)));
         const cartIntentions = Array.from(new Set(cart.map(item => item.intention).filter(Boolean)));
-        
-        const relatedProducts = available.filter(p => 
-            !recentlyViewed.includes(p.id) && 
+
+        const relatedProducts = available.filter(p =>
+            !recentlyViewed.includes(p.id) &&
             (cartCategories.includes(p.category) || (p.intention && cartIntentions.includes(p.intention)))
         );
 
@@ -68,7 +68,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         </div>
                         <h2 className="text-xl font-bold tracking-widest text-text-main group-hover:text-accent-gold transition-colors">AURA</h2>
                     </Link>
-                    
+
                     <nav className="hidden md:flex items-center gap-10">
                         <Link to="/" className={`text-sm font-light tracking-wide transition-colors hover:text-accent-gold ${location.pathname === '/' ? 'text-accent-gold' : 'text-purple-200'}`}>Inicio</Link>
                         <Link to="/store" className={`text-sm font-light tracking-wide transition-colors hover:text-accent-gold ${location.pathname === '/store' ? 'text-accent-gold' : 'text-purple-200'}`}>Productos</Link>
@@ -81,7 +81,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <Link to="/account" className="hidden sm:flex size-10 items-center justify-center rounded-full bg-purple-900/30 border border-purple-500/20 text-purple-200 transition-transform hover:scale-105 hover:bg-purple-800/50 hover:text-white hover:border-accent-gold/50">
                             <span className="material-symbols-outlined text-[20px]">person</span>
                         </Link>
-                        <button 
+                        <button
                             onClick={() => setIsCartOpen(true)}
                             className="relative flex size-10 items-center justify-center rounded-full bg-purple-900/30 border border-purple-500/20 text-purple-200 transition-transform hover:scale-105 hover:bg-purple-800/50 hover:text-white hover:border-accent-gold/50"
                         >
@@ -92,7 +92,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                                 </span>
                             )}
                         </button>
-                        <button 
+                        <button
                             className="md:hidden flex size-10 items-center justify-center rounded-full bg-transparent text-white"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
@@ -103,12 +103,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
                 {mobileMenuOpen && (
                     <div className="md:hidden absolute top-20 left-0 w-full bg-[#1A0B2E] border-b border-purple-500/20 p-4 flex flex-col gap-4 shadow-2xl backdrop-blur-xl">
-                         <Link to="/" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Inicio</Link>
-                         <Link to="/store" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Productos</Link>
-                         <Link to="/services" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Servicios</Link>
-                         <Link to="/blog" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
-                         <Link to="/contact" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Contacto</Link>
-                         <Link to="/account" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Mi Cuenta</Link>
+                        <Link to="/" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Inicio</Link>
+                        <Link to="/store" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Productos</Link>
+                        <Link to="/services" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Servicios</Link>
+                        <Link to="/blog" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
+                        <Link to="/contact" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Contacto</Link>
+                        <Link to="/account" className="text-purple-100 p-2 hover:bg-purple-900/20 rounded-lg" onClick={() => setMobileMenuOpen(false)}>Mi Cuenta</Link>
                     </div>
                 )}
             </header>
@@ -117,7 +117,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <div className="fixed inset-0 z-[60] flex justify-end">
                     <div className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onClick={() => setIsCartOpen(false)}></div>
                     <div className="relative w-full max-w-5xl bg-[#1A0B2E] border-l border-purple-500/20 h-full shadow-2xl flex animate-slide-in-right overflow-hidden">
-                        
+
                         {/* LEFT: UPSELL (Intelligent & Collapsible) */}
                         <div className={`hidden md:flex flex-col border-r border-purple-500/10 bg-[#11001C] transition-all duration-500 overflow-hidden ${upsellExpanded ? 'w-[45%] opacity-100' : 'w-0 opacity-0'}`}>
                             <div className="p-8 h-full overflow-y-auto no-scrollbar">
@@ -141,7 +141,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         <div className="flex-1 flex flex-col w-full md:w-[55%] bg-[#1A0B2E]">
                             <div className="flex items-center justify-between p-6 border-b border-purple-500/10">
                                 <div className="flex items-center gap-4">
-                                    <button 
+                                    <button
                                         onClick={() => setIsCartOpen(false)}
                                         className="text-purple-300 hover:text-white flex items-center justify-center p-2 rounded-full hover:bg-white/5"
                                     >
@@ -152,7 +152,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                                     </h2>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <button 
+                                    <button
                                         onClick={() => setUpsellExpanded(!upsellExpanded)}
                                         className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-900/30 border border-purple-500/20 text-xs font-bold text-purple-200 hover:text-white hover:bg-purple-800/50 transition-all"
                                     >
@@ -182,10 +182,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                                 <div className="p-6 border-t border-purple-500/10 bg-[#150524]">
                                     <div className="flex justify-between items-center mb-6">
                                         <span className="text-purple-300">Total</span>
-                                        <span className="text-2xl font-bold text-accent-gold font-body">${totalPrice.toFixed(2)}</span>
+                                        <span className="text-2xl font-bold text-accent-gold font-body">S/ {totalPrice.toFixed(2)}</span>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
-                                        <Link 
+                                        <Link
                                             to="/cart"
                                             onClick={() => setIsCartOpen(false)}
                                             className="py-4 rounded-full border border-purple-500/30 text-purple-200 font-bold transition-all hover:bg-purple-500/10 flex items-center justify-center"
@@ -231,14 +231,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             <ul className="space-y-2 text-sm text-purple-300 font-body">
                                 <li><Link className="hover:text-accent-gold transition-colors" to="/contact">Contacto</Link></li>
                                 <li><Link className="hover:text-accent-gold transition-colors" to="/account">Mi Cuenta</Link></li>
-                                <li><a className="hover:text-accent-gold transition-colors" href="#">FAQ</a></li>
+                                <li><Link className="hover:text-accent-gold transition-colors" to="/faq">FAQ</Link></li>
                             </ul>
                         </div>
                         <div>
                             <h3 className="text-sm font-semibold text-white mb-4">Legal</h3>
                             <ul className="space-y-2 text-sm text-purple-300 font-body">
-                                <li><a className="hover:text-accent-gold transition-colors" href="#">Privacidad</a></li>
-                                <li><a className="hover:text-accent-gold transition-colors" href="#">Términos</a></li>
+                                <li><Link className="hover:text-accent-gold transition-colors" to="/legal/privacy">Privacidad</Link></li>
+                                <li><Link className="hover:text-accent-gold transition-colors" to="/legal/terms">Términos</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -247,7 +247,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </div>
                 </div>
             </footer>
-            
+
             {/* Attribution Bar */}
             <div className="w-full h-10 bg-[#0a0310] flex items-center justify-center border-t border-purple-500/5 z-30">
                 <p className="text-[10px] text-purple-400 flex items-center gap-1 font-body tracking-wider uppercase">

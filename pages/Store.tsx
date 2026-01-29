@@ -6,7 +6,7 @@ import { products } from '../data/products';
 
 // Helper to parse price for filtering
 const parsePrice = (priceStr: string): number => {
-    return parseFloat(priceStr.replace('$', '').replace(',', ''));
+    return parseFloat(priceStr.replace('S/', '').replace(',', '').trim());
 };
 
 const Store: React.FC = () => {
@@ -14,7 +14,7 @@ const Store: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('Todo');
     const [selectedIntention, setSelectedIntention] = useState<string>('Todas');
     const [onlyInStock, setOnlyInStock] = useState(false);
-    const [priceRange, setPriceRange] = useState<number>(100); // Max price slider
+    const [priceRange, setPriceRange] = useState<number>(300); // Max price slider
     const [showFilters, setShowFilters] = useState(false);
 
     // Derived Lists for Filters
@@ -38,21 +38,21 @@ const Store: React.FC = () => {
         setSelectedCategory('Todo');
         setSelectedIntention('Todas');
         setOnlyInStock(false);
-        setPriceRange(100);
+        setPriceRange(300);
     };
 
     return (
         <div className="min-h-screen">
-             {/* HERO SYSTEM: STORE (Sacred Altar Image) */}
-             <div className="relative min-h-[60vh] lg:min-h-[70vh] w-full overflow-hidden flex items-center justify-center">
-                <img 
-                    src="https://images.unsplash.com/photo-1603573212727-4f6c827d5301?auto=format&fit=crop&q=80&w=2400"
+            {/* HERO SYSTEM: STORE (Sacred Altar Image) */}
+            <div className="relative min-h-[60vh] lg:min-h-[70vh] w-full overflow-hidden flex items-center justify-center">
+                <img
+                    src="/assets/images/hero_store.jpg"
                     alt="Altar Sagrado - Cristales, Velas y Sahumerio"
                     className="absolute inset-0 w-full h-full object-cover object-center"
                 />
                 {/* Heavy purple/black overlay for readability */}
                 <div className="absolute inset-0 bg-gradient-to-b from-[#240b36]/70 via-[#1a0b2e]/60 to-[#11001C]"></div>
-                
+
                 <div className="relative z-10 max-w-[1280px] w-full px-6 lg:px-12 text-center flex flex-col items-center gap-6 animate-fade-in-up">
                     <div className="space-y-4">
                         <span className="text-accent-gold uppercase font-bold tracking-[0.4em] text-[10px] md:text-xs">Curaduría de Objetos de Poder</span>
@@ -72,14 +72,13 @@ const Store: React.FC = () => {
                     {/* Categories (Horizontal Scroll) */}
                     <div className="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
                         {categories.map(cat => (
-                            <button 
+                            <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
-                                className={`shrink-0 rounded-full px-5 py-2 text-sm font-medium transition whitespace-nowrap font-body ${
-                                    selectedCategory === cat 
-                                    ? 'bg-purple-900/50 text-white shadow-lg border border-purple-500/50' 
+                                className={`shrink-0 rounded-full px-5 py-2 text-sm font-medium transition whitespace-nowrap font-body ${selectedCategory === cat
+                                    ? 'bg-purple-900/50 text-white shadow-lg border border-purple-500/50'
                                     : 'bg-purple-500/5 text-purple-300 hover:bg-purple-500/10 hover:text-white border border-purple-500/10'
-                                }`}
+                                    }`}
                             >
                                 {cat}
                             </button>
@@ -87,11 +86,10 @@ const Store: React.FC = () => {
                     </div>
 
                     {/* Filter Toggle */}
-                    <button 
+                    <button
                         onClick={() => setShowFilters(!showFilters)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold border transition font-body ${
-                            showFilters ? 'bg-white text-deep-purple border-white' : 'bg-transparent text-white border-purple-500/20 hover:bg-purple-500/10'
-                        }`}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold border transition font-body ${showFilters ? 'bg-white text-deep-purple border-white' : 'bg-transparent text-white border-purple-500/20 hover:bg-purple-500/10'
+                            }`}
                     >
                         <span className="material-symbols-outlined text-[18px]">tune</span>
                         Filtros
@@ -107,14 +105,13 @@ const Store: React.FC = () => {
                                 <h4 className="text-sm font-bold text-purple-300 uppercase tracking-wider mb-3 font-display">Intención</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {intentions.map(int => (
-                                        <button 
+                                        <button
                                             key={int}
                                             onClick={() => setSelectedIntention(int)}
-                                            className={`px-3 py-1 rounded-lg text-xs font-medium border transition ${
-                                                selectedIntention === int
+                                            className={`px-3 py-1 rounded-lg text-xs font-medium border transition ${selectedIntention === int
                                                 ? 'bg-purple-600/50 border-purple-500 text-white'
                                                 : 'border-purple-500/20 text-purple-300 hover:text-white hover:border-purple-500/50'
-                                            }`}
+                                                }`}
                                         >
                                             {int}
                                         </button>
@@ -125,20 +122,20 @@ const Store: React.FC = () => {
                             {/* Price Range */}
                             <div>
                                 <h4 className="text-sm font-bold text-purple-300 uppercase tracking-wider mb-3 font-display">
-                                    Precio Máximo: <span className="text-white">${priceRange}</span>
+                                    Precio Máximo: <span className="text-white">S/ {priceRange}</span>
                                 </h4>
-                                <input 
-                                    type="range" 
-                                    min="0" 
-                                    max="100" 
-                                    step="5"
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="500"
+                                    step="10"
                                     value={priceRange}
                                     onChange={(e) => setPriceRange(Number(e.target.value))}
                                     className="w-full h-2 bg-purple-900/50 rounded-lg appearance-none cursor-pointer accent-accent-gold"
                                 />
                                 <div className="flex justify-between text-xs text-purple-400 mt-2 font-body">
-                                    <span>$0</span>
-                                    <span>$100+</span>
+                                    <span>S/ 0</span>
+                                    <span>S/ 500+</span>
                                 </div>
                             </div>
 
@@ -168,7 +165,7 @@ const Store: React.FC = () => {
                 <div className="mb-6 flex items-center justify-between">
                     <p className="text-purple-300 text-sm font-body">Mostrando {filteredProducts.length} productos</p>
                 </div>
-                
+
                 {filteredProducts.length > 0 ? (
                     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                         {filteredProducts.map(product => (

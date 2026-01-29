@@ -3,19 +3,18 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
+import { ProductCard } from '../components/ProductCard';
 
 const ProductDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const { addToCart } = useCart();
-    
+
     // Find product or default to first one
     const product = products.find(p => p.id === Number(id)) || products[0];
 
     // States for interaction
     const [selectedImage, setSelectedImage] = useState(product.image);
-    const [selectedVariant, setSelectedVariant] = useState<string | null>(
-        product.variants ? product.variants[0].options[0] : null
-    );
+    const [variantSelections, setVariantSelections] = useState<Record<string, string>>({});
     const [quantity, setQuantity] = useState(1);
     const [openAccordion, setOpenAccordion] = useState<string>('description');
     const [showStickyBar, setShowStickyBar] = useState(false);
@@ -30,7 +29,7 @@ const ProductDetail: React.FC = () => {
         const saved = localStorage.getItem('aura_recently_viewed');
         let list: number[] = [];
         if (saved) {
-            try { list = JSON.parse(saved); } catch(e) {}
+            try { list = JSON.parse(saved); } catch (e) { }
         }
         // Add current ID to front, unique, limit to 8
         const newList = [product.id, ...list.filter(item => item !== product.id)].slice(0, 8);
@@ -41,8 +40,8 @@ const ProductDetail: React.FC = () => {
     const isSale = !!product.originalPrice;
     const calculateDiscount = () => {
         if (!product.originalPrice) return 0;
-        const p = parseFloat(product.price.replace('$', ''));
-        const o = parseFloat(product.originalPrice.replace('$', ''));
+        const p = parseFloat(product.price.replace('S/', '').replace(',', '').trim());
+        const o = parseFloat(product.originalPrice.replace('S/', '').replace(',', '').trim());
         return Math.round(((o - p) / o) * 100);
     };
     const discountPercent = calculateDiscount();
@@ -63,7 +62,18 @@ const ProductDetail: React.FC = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         setSelectedImage(product.images ? product.images[0] : product.image);
-        setSelectedVariant(product.variants ? product.variants[0].options[0] : null);
+
+        // Initialize independent selections
+        const initialSelections: Record<string, string> = {};
+        if (product.variants) {
+            product.variants.forEach(v => {
+                if (v.options.length > 0) {
+                    initialSelections[v.name] = v.options[0];
+                }
+            });
+        }
+        setVariantSelections(initialSelections);
+
         setQuantity(1);
     }, [id, product]);
 
@@ -77,13 +87,13 @@ const ProductDetail: React.FC = () => {
     }, []);
 
     const handleAddToCart = () => {
-        if (product.variants && !selectedVariant) {
-            alert("Por favor selecciona una variante.");
-            return;
-        }
-        addToCart(product, selectedVariant || undefined);
-        for(let i=1; i<quantity; i++) {
-             addToCart(product, selectedVariant || undefined);
+        // Combine selections
+        const values = Object.values(variantSelections);
+        const finalVariant = values.length > 0 ? values.join(' + ') : undefined;
+
+        addToCart(product, finalVariant);
+        for (let i = 1; i < quantity; i++) {
+            addToCart(product, finalVariant);
         }
     };
 
@@ -104,16 +114,16 @@ const ProductDetail: React.FC = () => {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-24">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20">
-                    
+
                     {/* LEFT COLUMN: GALLERY */}
                     <div className="flex flex-col gap-6">
                         <div className="aspect-[4/5] w-full bg-card-purple rounded-[2rem] overflow-hidden border border-purple-500/10 relative group">
-                            <img 
-                                src={selectedImage} 
-                                alt={product.name} 
+                            <img
+                                src={selectedImage}
+                                alt={product.name}
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
-                             {mainBadge && (
+                            {mainBadge && (
                                 <span className={`absolute top-6 left-6 inline-flex items-center rounded-full px-4 py-1.5 text-sm font-bold ${mainBadgeStyle}`}>
                                     {mainBadge}
                                 </span>
@@ -122,14 +132,13 @@ const ProductDetail: React.FC = () => {
                         {product.images && product.images.length > 0 && (
                             <div className="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
                                 {product.images.map((img, idx) => (
-                                    <button 
+                                    <button
                                         key={idx}
                                         onClick={() => setSelectedImage(img)}
-                                        className={`size-20 lg:size-24 rounded-2xl overflow-hidden border-2 flex-shrink-0 transition-all ${
-                                            selectedImage === img 
-                                            ? 'border-accent-gold opacity-100' 
+                                        className={`size-20 lg:size-24 rounded-2xl overflow-hidden border-2 flex-shrink-0 transition-all ${selectedImage === img
+                                            ? 'border-accent-gold opacity-100'
                                             : 'border-transparent opacity-60 hover:opacity-100'
-                                        }`}
+                                            }`}
                                     >
                                         <img src={img} alt={`View ${idx}`} className="w-full h-full object-cover" />
                                     </button>
@@ -146,7 +155,7 @@ const ProductDetail: React.FC = () => {
                                     {product.name}
                                 </h1>
                                 <p className="text-xl text-purple-200 font-light font-body">{product.subtitle}</p>
-                                
+
                                 <div className="mt-6 flex flex-col items-start gap-1">
                                     {isSale ? (
                                         <div className="flex items-center gap-4">
@@ -184,22 +193,24 @@ const ProductDetail: React.FC = () => {
                             {product.variants && product.variants.map((variant, vIdx) => (
                                 <div key={vIdx}>
                                     <h3 className="text-sm font-bold uppercase tracking-wide text-purple-300 mb-3 font-body">
-                                        {variant.name}: <span className="text-white">{selectedVariant}</span>
+                                        {variant.name}: <span className="text-white">{variantSelections[variant.name]}</span>
                                     </h3>
                                     <div className="flex flex-wrap gap-3">
-                                        {variant.options.map((option, oIdx) => (
-                                            <button
-                                                key={oIdx}
-                                                onClick={() => setSelectedVariant(option)}
-                                                className={`px-6 py-3 rounded-xl text-sm font-medium transition-all border font-body ${
-                                                    selectedVariant === option
-                                                    ? 'bg-purple-600 border-purple-500 text-white'
-                                                    : 'bg-transparent text-purple-300 border-purple-500/20 hover:border-accent-gold hover:text-white'
-                                                }`}
-                                            >
-                                                {option}
-                                            </button>
-                                        ))}
+                                        {variant.options.map((option, oIdx) => {
+                                            const isActive = variantSelections[variant.name] === option;
+                                            return (
+                                                <button
+                                                    key={oIdx}
+                                                    onClick={() => setVariantSelections(prev => ({ ...prev, [variant.name]: option }))}
+                                                    className={`px-6 py-3 rounded-xl text-sm font-medium transition-all border font-body ${isActive
+                                                        ? 'bg-purple-600 border-purple-500 text-white shadow-[0_0_15px_rgba(147,51,234,0.4)]'
+                                                        : 'bg-transparent text-purple-300 border-purple-500/20 hover:border-accent-gold hover:text-white'
+                                                        }`}
+                                                >
+                                                    {option}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             ))}
@@ -230,7 +241,7 @@ const ProductDetail: React.FC = () => {
                                     {product.longDescription || product.description}
                                 </AccordionItem>
                                 <AccordionItem title="Tiempo de Envío" isOpen={openAccordion === 'shipping'} onClick={() => toggleAccordion('shipping')}>
-                                    Envío gratuito en pedidos superiores a $75. Procesamos los pedidos en 24-48 horas laborables. Entrega estimada: 3-5 días hábiles.
+                                    Envío gratuito en pedidos superiores a S/ 300. Procesamos los pedidos en 24-48 horas laborables. Entrega estimada: 3-5 días hábiles.
                                 </AccordionItem>
                                 <AccordionItem title="Recomendaciones" isOpen={openAccordion === 'recommendations'} onClick={() => toggleAccordion('recommendations')}>
                                     {product.recommendations || "Combina este producto con una intención clara y un espacio tranquilo para maximizar sus beneficios."}
@@ -247,18 +258,7 @@ const ProductDetail: React.FC = () => {
                     <h2 className="text-3xl font-display text-white mb-10 text-center">Te puede interesar</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {relatedProducts.map(related => (
-                            <div key={related.id} className="group flex flex-col">
-                                <Link to={`/product/${related.id}`} className="block overflow-hidden rounded-2xl bg-card-purple aspect-[4/5] relative mb-4 border border-purple-500/10">
-                                    <img src={related.image} alt={related.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                                </Link>
-                                <div className="flex-1 flex flex-col">
-                                    <h3 className="text-white font-medium text-lg font-display">{related.name}</h3>
-                                    <p className="font-bold text-accent-gold mb-3 font-body">{related.price}</p>
-                                    <Link to={`/product/${related.id}`} className="w-full py-2 border border-purple-500/20 rounded-lg text-sm text-purple-200 hover:bg-white hover:text-deep-purple transition-colors text-center block mt-auto font-body uppercase tracking-wider">
-                                        Ver detalles
-                                    </Link>
-                                </div>
-                            </div>
+                            <ProductCard key={related.id} product={related} />
                         ))}
                     </div>
                 </div>
@@ -273,7 +273,7 @@ const ProductDetail: React.FC = () => {
                         </div>
                         <div>
                             <h4 className="font-bold text-white text-sm font-display">{product.name}</h4>
-                            <p className="text-xs text-purple-300 font-body">{selectedVariant || "Variante estándar"}</p>
+                            <p className="text-xs text-purple-300 font-body">{Object.values(variantSelections).join(' + ')}</p>
                         </div>
                     </div>
                     <div className="flex items-center gap-4 flex-1 md:flex-none justify-end">

@@ -3,12 +3,13 @@ import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
+import { ProductCard } from '../components/ProductCard';
 
 const Cart: React.FC = () => {
     const navigate = useNavigate();
     const { cart, removeFromCart, updateQuantity, totalPrice, totalOriginalPrice, totalDiscount } = useCart();
 
-    const shippingCost = totalPrice > 75 ? 0 : 5.00;
+    const shippingCost = totalPrice > 300 ? 0 : 15.00;
     const finalTotal = totalPrice + shippingCost;
 
     const crossSellProducts = useMemo(() => {
@@ -61,7 +62,7 @@ const Cart: React.FC = () => {
                                                 )}
                                             </div>
                                         </div>
-                                        
+
                                         <div className="flex justify-center">
                                             <div className="flex items-center bg-[#11001C]/60 rounded-lg border border-purple-500/20 px-2 py-1">
                                                 <button onClick={() => updateQuantity(item.id, -1, item.selectedVariant)} className="px-2 text-purple-300 hover:text-white">-</button>
@@ -93,25 +94,25 @@ const Cart: React.FC = () => {
                             <div className="space-y-4 text-sm text-purple-200 font-body">
                                 <div className="flex justify-between">
                                     <span>Subtotal (Precio Original)</span>
-                                    <span>${totalOriginalPrice.toFixed(2)}</span>
+                                    <span>S/ {totalOriginalPrice.toFixed(2)}</span>
                                 </div>
                                 {totalDiscount > 0 && (
                                     <div className="flex justify-between text-green-300">
                                         <span>Descuentos</span>
-                                        <span>-${totalDiscount.toFixed(2)}</span>
+                                        <span>-S/ {totalDiscount.toFixed(2)}</span>
                                     </div>
                                 )}
                                 <div className="flex justify-between">
                                     <span>Envío</span>
-                                    <span>{shippingCost === 0 ? "Gratis" : `$${shippingCost.toFixed(2)}`}</span>
+                                    <span>{shippingCost === 0 ? "Gratis" : `S/ ${shippingCost.toFixed(2)}`}</span>
                                 </div>
                                 <div className="pt-4 border-t border-purple-500/20 flex justify-between text-lg font-bold text-white">
                                     <span>Total Final</span>
-                                    <span className="text-accent-gold">${finalTotal.toFixed(2)}</span>
+                                    <span className="text-accent-gold">S/ {finalTotal.toFixed(2)}</span>
                                 </div>
                             </div>
-                            
-                            <button 
+
+                            <button
                                 onClick={() => navigate('/checkout')}
                                 className="w-full mt-8 py-4 bg-gold-gradient text-deep-purple font-bold rounded-xl shadow-lg transition flex items-center justify-center gap-2 hover:scale-[1.02]"
                             >
@@ -126,24 +127,9 @@ const Cart: React.FC = () => {
                 <div className="mt-24 border-t border-purple-500/10 pt-12">
                     <h2 className="text-2xl font-display mb-8">También te podría interesar</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {crossSellProducts.map((p) => {
-                             const isSale = !!p.originalPrice;
-                             return (
-                                <Link key={p.id} to={`/product/${p.id}`} className="group block bg-card-purple rounded-2xl p-4 border border-purple-500/5 hover:border-purple-500/20 transition">
-                                    <div className="aspect-square rounded-xl overflow-hidden mb-4 relative bg-[#11001C]">
-                                        <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                                        {isSale && (
-                                            <span className="absolute top-2 right-2 bg-red-500 text-white text-[10px] uppercase font-bold px-2 py-1 rounded">Oferta</span>
-                                        )}
-                                    </div>
-                                    <h3 className="font-medium text-white group-hover:text-accent-gold transition font-display">{p.name}</h3>
-                                    <div className="flex items-center gap-2 font-body">
-                                         <p className={`text-sm ${isSale ? 'text-red-300 font-bold' : 'text-purple-300'}`}>{p.price}</p>
-                                         {isSale && <p className="text-xs text-purple-300/50 line-through">{p.originalPrice}</p>}
-                                    </div>
-                                </Link>
-                             );
-                        })}
+                        {crossSellProducts.map((p) => (
+                            <ProductCard key={p.id} product={p} />
+                        ))}
                     </div>
                 </div>
             </div>

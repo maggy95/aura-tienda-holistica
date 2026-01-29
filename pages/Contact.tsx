@@ -35,22 +35,22 @@ const Contact: React.FC = () => {
             {/* HERO SYSTEM: CONTACT (Energy Hands Image) */}
             <section className="relative min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden py-20">
                 <div className="absolute inset-0 z-0">
-                    <img 
-                        src="https://images.unsplash.com/photo-1514356877083-29913123891c?auto=format&fit=crop&q=80&w=2400"
+                    <img
+                        src="/assets/images/hero_contact.jpg"
                         alt="Sanación Holística - Manos y Energía"
                         className="w-full h-full object-cover object-center scale-105"
                         loading="eager"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-[#240b36]/70 via-[#1a0b2e]/60 to-[#11001C]"></div>
                 </div>
-                
+
                 <div className="relative z-10 max-w-[1280px] w-full mx-auto px-6 lg:px-12 text-center flex flex-col items-center gap-8 animate-fade-in-up">
                     {/* Eyebrow & Profile Info */}
                     <div className="flex flex-col items-center gap-4">
                         <div className="size-24 md:size-32 rounded-full border-2 border-accent-gold/50 overflow-hidden shadow-[0_0_30px_rgba(252,211,77,0.3)] p-1 bg-purple-900/50 backdrop-blur-sm">
-                            <img 
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-QD0vld2EIk5wxhSzhVN0V4QPPdC79U5jl7y7hXaEwWGBsKObGnDIs_QhCoCf2rajQpeb8yX2etC2fMDrHAG0LTWPfumCjnCDB_9SO1m2Gp9VdKIX56bDUiTyK-lUupzeQDitBjqA3RaMto9T9TFF_mBFQGWr3ropPnvdmxV1pcenDjnSWCZFHmKpSTg47D3zGOK4TfAeeTaix59UxbNpOvOiAUpYElmQ0gEjh4Le03BIGp0zBXbgOU__7OzyPvHRZ4K2uSj-mTIR" 
-                                alt="Paola Morote" 
+                            <img
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-QD0vld2EIk5wxhSzhVN0V4QPPdC79U5jl7y7hXaEwWGBsKObGnDIs_QhCoCf2rajQpeb8yX2etC2fMDrHAG0LTWPfumCjnCDB_9SO1m2Gp9VdKIX56bDUiTyK-lUupzeQDitBjqA3RaMto9T9TFF_mBFQGWr3ropPnvdmxV1pcenDjnSWCZFHmKpSTg47D3zGOK4TfAeeTaix59UxbNpOvOiAUpYElmQ0gEjh4Le03BIGp0zBXbgOU__7OzyPvHRZ4K2uSj-mTIR"
+                                alt="Paola Morote"
                                 className="w-full h-full object-cover rounded-full"
                             />
                         </div>
@@ -60,7 +60,7 @@ const Contact: React.FC = () => {
                     {/* Title Section */}
                     <div className="space-y-4">
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-light text-white leading-[1.05] tracking-tight">
-                            Diseña tu nueva <br/>
+                            Diseña tu nueva <br />
                             <span className="font-bold italic text-purple-200">Realidad Energética</span>
                         </h1>
                         <p className="max-w-2xl mx-auto text-lg md:text-xl text-purple-100/90 font-light leading-relaxed font-body">
@@ -70,17 +70,17 @@ const Contact: React.FC = () => {
 
                     {/* CTAs */}
                     <div className="flex flex-col sm:flex-row gap-5 mt-4 w-full sm:w-auto">
-                        <a 
-                            href="https://cal.com" 
-                            target="_blank" 
+                        <a
+                            href="https://cal.com"
+                            target="_blank"
                             rel="noreferrer"
                             className="bg-gold-gradient text-deep-purple px-10 py-5 rounded-full font-bold text-lg hover:shadow-lg transition-all hover:scale-105 shadow-md flex items-center justify-center gap-3"
                         >
                             Agenda tu sesión ahora
                             <span className="material-symbols-outlined">event_available</span>
                         </a>
-                        <Link 
-                            to="/services" 
+                        <Link
+                            to="/services"
                             className="px-10 py-5 rounded-full border border-purple-200/20 text-white font-bold text-lg hover:bg-white/5 backdrop-blur-md transition-all flex items-center justify-center"
                         >
                             Explorar Metodologías
@@ -129,7 +129,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
                     <div className="hidden md:block absolute top-10 left-0 w-full h-px bg-purple-500/10 -z-10"></div>
-                    
+
                     {steps.map((step, idx) => (
                         <div key={idx} className="relative z-10 flex flex-col items-center text-center group">
                             <div className="size-20 rounded-full bg-purple-900 border border-purple-500/30 flex items-center justify-center text-white mb-8 shadow-xl group-hover:scale-110 transition-transform ring-4 ring-[#11001C]">
@@ -219,17 +219,17 @@ const Contact: React.FC = () => {
                     </div>
                     <h3 className="text-4xl font-display mb-6">Tu momento es <span className="text-accent-gold italic">ahora</span></h3>
                     <p className="text-purple-200 mb-12 font-light leading-relaxed text-lg font-body">El universo premia la acción consciente. Reserva tu espacio exclusivo y recibe tu enlace de Google Meet al instante.</p>
-                    
-                    <a 
-                        href="https://cal.com" 
-                        target="_blank" 
+
+                    <a
+                        href="https://cal.com"
+                        target="_blank"
                         rel="noreferrer"
                         className="w-full bg-gold-gradient text-deep-purple py-6 rounded-full font-bold text-xl hover:shadow-xl transition-all shadow-lg flex items-center justify-center gap-3 group"
                     >
                         Agendar Mi Espacio
                         <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">chevron_right</span>
                     </a>
-                    
+
                     <div className="mt-10 flex items-center justify-center gap-4 text-[11px] text-purple-400 uppercase tracking-[0.2em] font-bold font-body">
                         <div className="flex items-center gap-1.5">
                             <span className="material-symbols-outlined text-sm text-green-500">lock</span>
@@ -249,7 +249,7 @@ const Contact: React.FC = () => {
                 <div className="max-w-3xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold mb-4 font-display">Preguntas sobre productos</h2>
                     <p className="text-purple-300 mb-16 font-light text-lg font-body">Si tienes dudas sobre nuestras velas, sprays o kits holísticos, escríbenos y te guiaremos personalmente.</p>
-                    
+
                     {status === 'success' ? (
                         <div className="p-16 bg-green-500/10 rounded-[3rem] border border-green-500/20 text-center animate-fade-in">
                             <span className="material-symbols-outlined text-5xl text-green-400 mb-6">check_circle</span>

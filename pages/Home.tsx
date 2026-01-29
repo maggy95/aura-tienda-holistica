@@ -53,13 +53,19 @@ const Home: React.FC = () => {
         return () => clearInterval(interval);
     }, [isDragging]);
 
-    const intentions = [
-        { name: 'Amor Propio', icon: 'favorite', desc: 'Sana tu corazón', color: 'text-pink-300' },
-        { name: 'Protección', icon: 'shield', desc: 'Escudo energético', color: 'text-purple-300' },
-        { name: 'Abundancia', icon: 'diamond', desc: 'Atrae prosperidad', color: 'text-amber-300' },
-        { name: 'Calma', icon: 'spa', desc: 'Paz mental', color: 'text-blue-300' },
-        { name: 'Limpieza', icon: 'air', desc: 'Purifica espacios', color: 'text-gray-300' },
-        { name: 'Intuición', icon: 'visibility', desc: 'Despertar espiritual', color: 'text-indigo-300' },
+    const zodiacSigns = [
+        { name: 'Aries', icon: '♈', slug: 'aries', dates: 'Mar 21 - Abr 19' },
+        { name: 'Tauro', icon: '♉', slug: 'tauro', dates: 'Abr 20 - May 20' },
+        { name: 'Géminis', icon: '♊', slug: 'geminis', dates: 'May 21 - Jun 20' },
+        { name: 'Cáncer', icon: '♋', slug: 'cancer', dates: 'Jun 21 - Jul 22' },
+        { name: 'Leo', icon: '♌', slug: 'leo', dates: 'Jul 23 - Ago 22' },
+        { name: 'Virgo', icon: '♍', slug: 'virgo', dates: 'Ago 23 - Sep 22' },
+        { name: 'Libra', icon: '♎', slug: 'libra', dates: 'Sep 23 - Oct 22' },
+        { name: 'Escorpio', icon: '♏', slug: 'escorpio', dates: 'Oct 23 - Nov 21' },
+        { name: 'Sagitario', icon: '♐', slug: 'sagitario', dates: 'Nov 22 - Dic 21' },
+        { name: 'Capricornio', icon: '♑', slug: 'capricornio', dates: 'Dic 22 - Ene 19' },
+        { name: 'Acuario', icon: '♒', slug: 'acuario', dates: 'Ene 20 - Feb 18' },
+        { name: 'Piscis', icon: '♓', slug: 'piscis', dates: 'Feb 19 - Mar 20' },
     ];
 
     return (
@@ -75,59 +81,42 @@ const Home: React.FC = () => {
                 <section className="relative h-screen w-full overflow-hidden flex flex-col justify-end lg:items-center">
                     {/* Background Image: Corrected Human Figure with Chakras/Geometry */}
                     <img
-                        src="/assets/images/hero_main.png"
+                        src="/assets/images/hero_home.webp"
                         alt="Figura humana luminosa con geometría sagrada"
                         className="absolute inset-0 h-full w-full object-cover object-center z-0"
                     />
 
-                    {/* Cinematic Overlays */}
-                    {/* Desktop: Gradient from Left to focus attention on text without blocking center figure */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#05010a] via-[#11001C]/60 to-transparent z-10 hidden lg:block"></div>
+                    {/* Cinematic Overlays - Harmonized for Centered Text */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#240b36]/30 via-[#1a0b2e]/50 to-[#11001C] z-10"></div>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_100%)] opacity-40 z-10"></div>
 
-                    {/* Mobile: Gradient from Bottom to support the floating card */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#05010a] via-[#11001C]/50 to-transparent z-10 lg:hidden"></div>
+                    {/* Content Container - Centered */}
+                    <div className="relative z-20 max-w-[1280px] w-full mx-auto px-6 lg:px-12 h-full flex flex-col justify-center items-center text-center pb-12 lg:pb-0 animate-fade-in-up">
+                        <div className="space-y-6 flex flex-col items-center">
+                            <span className="text-accent-gold uppercase font-bold tracking-[0.4em] text-[10px] md:text-xs">
+                                Santuario Holístico
+                            </span>
 
-                    {/* Radial Vignette: Darken edges, keep center luminous */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#000000_120%)] opacity-70 z-10 mix-blend-multiply"></div>
+                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-light text-white leading-[1.1] tracking-tight text-glow">
+                                Eleva tu <br />
+                                <span className="font-bold italic text-purple-200">
+                                    Energía Vital
+                                </span>
+                            </h1>
 
-                    {/* Content Container */}
-                    <div className="relative z-20 max-w-[1440px] w-full mx-auto px-6 lg:px-16 h-full flex flex-col justify-end lg:justify-center pb-12 lg:pb-0">
-                        {/* Grid to control placement: Text left, Center Empty */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full">
+                            <p className="max-w-2xl mx-auto text-lg md:text-xl text-purple-100/90 font-light leading-relaxed font-body">
+                                Conecta con tu esencia a través de geometría sagrada, cristaloterapia y guías espirituales para tu evolución.
+                            </p>
 
-                            {/* Text Block: Left Aligned on Desktop, Bottom Card on Mobile */}
-                            <div className="flex flex-col items-center lg:items-start text-center lg:text-left animate-fade-in-up">
-
-                                <div className="bg-black/30 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem] lg:bg-transparent lg:backdrop-blur-none lg:border-none lg:p-0 max-w-xl w-full">
-                                    <span className="text-accent-gold uppercase font-bold tracking-[0.4em] text-[10px] md:text-xs drop-shadow-md border border-accent-gold/40 px-4 py-2 rounded-full bg-black/40 mb-6 inline-block">
-                                        Santuario Holístico
-                                    </span>
-
-                                    <h1 className="text-5xl md:text-6xl lg:text-8xl font-display font-light text-white leading-[1.05] tracking-tight mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                                        Eleva tu <br />
-                                        <span className="font-bold italic text-transparent bg-clip-text bg-gradient-to-r from-white via-accent-gold to-yellow-200 drop-shadow-[0_0_25px_rgba(252,211,77,0.3)] text-glow">
-                                            Energía Vital
-                                        </span>
-                                    </h1>
-
-                                    <p className="text-lg md:text-xl text-purple-100 font-light leading-relaxed font-body drop-shadow-lg mb-8 lg:max-w-md">
-                                        Conecta con tu esencia a través de geometría sagrada, cristaloterapia y guías espirituales para tu evolución.
-                                    </p>
-
-                                    <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-                                        <Link to="/services" className="bg-accent-gold text-[#1a0b2e] px-10 py-4 rounded-full font-bold text-lg hover:shadow-[0_0_30px_rgba(252,211,77,0.5)] hover:scale-105 hover:bg-white transition-all flex items-center justify-center gap-3 shadow-lg shadow-black/50">
-                                            Reservar Sesión
-                                            <span className="material-symbols-outlined">event_available</span>
-                                        </Link>
-                                        <Link to="/store" className="px-10 py-4 rounded-full bg-white/10 border border-white/30 text-white font-bold text-lg hover:bg-white/20 backdrop-blur-md transition-all flex items-center justify-center shadow-lg shadow-black/50">
-                                            Explorar Tienda
-                                        </Link>
-                                    </div>
-                                </div>
+                            <div className="flex flex-col sm:flex-row gap-5 justify-center mt-4">
+                                <Link to="/services" className="bg-gold-gradient text-deep-purple px-12 py-5 rounded-full font-bold text-lg hover:shadow-lg transition-all hover:scale-105 shadow-md flex items-center justify-center gap-3">
+                                    Reservar Sesión
+                                    <span className="material-symbols-outlined">event_available</span>
+                                </Link>
+                                <Link to="/store" className="px-12 py-5 rounded-full bg-white/10 border border-white/30 text-white font-bold text-lg hover:bg-white/20 backdrop-blur-md transition-all flex items-center justify-center shadow-lg">
+                                    Explorar Tienda
+                                </Link>
                             </div>
-
-                            {/* Right Column is intentionally empty to let the Luminous Figure shine */}
-                            <div className="hidden lg:block"></div>
                         </div>
                     </div>
                 </section>
@@ -159,21 +148,32 @@ const Home: React.FC = () => {
                     </div>
                 </section>
 
-                {/* 3. CATEGORÍAS / INTENCIONES (Interactivo) */}
-                <section className="py-32 bg-[#1A0B2E] relative overflow-hidden">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle,rgba(216,180,254,0.05)_0%,transparent_70%)]"></div>
+                {/* 3. ZODIAC SYSTEM (Navigation Module) */}
+                <section className="py-24 bg-[#150a24] relative overflow-hidden">
+                    {/* Background decorations */}
+                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[radial-gradient(circle,rgba(252,211,77,0.03)_0%,transparent_60%)]"></div>
+
                     <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
                         <div className="mb-16">
-                            <span className="material-symbols-outlined text-accent-gold text-4xl mb-4">auto_awesome</span>
-                            <h2 className="text-4xl md:text-5xl font-display font-light text-white mb-4">Explora por <span className="font-bold italic text-purple-200">Intención</span></h2>
-                            <p className="text-purple-300/80 max-w-xl mx-auto font-light font-body">Encuentra exactamente lo que tu alma necesita en este momento.</p>
+                            <span className="material-symbols-outlined text-accent-gold text-4xl mb-4 animate-pulse-slow">auto_awesome</span>
+                            <h2 className="text-4xl md:text-5xl font-display font-light text-white mb-4">Elige tu signo del <span className="font-bold italic text-purple-200">Zodiaco</span></h2>
+                            <p className="text-purple-300/80 max-w-xl mx-auto font-light font-body">Conecta con tu energía astral y descubre productos y terapias alineadas a tu esencia.</p>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
-                            {intentions.map((intent) => (
-                                <Link to="/store" key={intent.name} className="group flex flex-col items-center justify-center p-8 bg-purple-500/5 border border-purple-500/10 rounded-3xl transition-all hover:bg-purple-500/10 hover:border-purple-500/30 hover:-translate-y-2 backdrop-blur-sm">
-                                    <span className={`material-symbols-outlined text-4xl mb-4 group-hover:scale-125 transition-transform ${intent.color}`}>{intent.icon}</span>
-                                    <h3 className="text-white font-bold mb-1 font-display">{intent.name}</h3>
-                                    <p className="text-[10px] text-purple-300 uppercase tracking-widest font-body">{intent.desc}</p>
+
+                        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 lg:gap-8">
+                            {zodiacSigns.map((sign) => (
+                                <Link
+                                    to={`/zodiac/${sign.slug}`}
+                                    key={sign.name}
+                                    className="group flex flex-col items-center justify-center p-6 transition-all duration-300 hover:-translate-y-2"
+                                >
+                                    <div className="relative size-20 md:size-24 mb-4 rounded-full bg-purple-900/30 border border-purple-500/20 group-hover:border-accent-gold/60 group-hover:bg-purple-900/50 group-hover:shadow-[0_0_20px_rgba(252,211,77,0.2)] transition-all flex items-center justify-center backdrop-blur-sm">
+                                        <span className="text-4xl md:text-5xl text-accent-gold drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300">{sign.icon}</span>
+                                        <div className="absolute inset-0 rounded-full border border-white/5 group-hover:border-white/10 scale-110 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                                    </div>
+                                    <h3 className="text-white font-bold text-lg font-display tracking-wide group-hover:text-accent-gold transition-colors">{sign.name}</h3>
+                                    <p className="text-[10px] text-purple-400/60 uppercase tracking-widest font-body opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">{sign.dates}</p>
                                 </Link>
                             ))}
                         </div>
@@ -191,16 +191,19 @@ const Home: React.FC = () => {
                             image="/assets/images/service_emotional.png"
                             title="Liberación Emocional"
                             desc="Libera bloqueos emocionales y traumas para recuperar tu equilibrio interior y vivir con claridad."
+                            link="/services#liberacion-emocional"
                         />
                         <ServiceCardSimple
                             image="/assets/images/service_biomagnetism.png"
                             title="Biomagnetismo"
                             desc="Terapia con imanes que equilibra tu energía y trata malestares físicos y emocionales desde su origen."
+                            link="/services#biomagnetismo"
                         />
                         <ServiceCardSimple
                             image="/assets/images/service_quantum.png"
                             title="Mesa Cuántica Energética"
                             desc="Limpieza energética profunda que armoniza tus chakras y transforma tu ser en todos los niveles."
+                            link="/services#mesa-cuantica"
                         />
                     </div>
                 </section>
@@ -370,8 +373,9 @@ const Home: React.FC = () => {
                 </section>
 
                 {/* 11. NEWSLETTER */}
-                <section className="py-24 px-6 lg:px-8 bg-gradient-to-b from-[#1A0B2E] to-[#11001C] border-t border-purple-500/10">
-                    <div className="max-w-4xl mx-auto text-center space-y-8">
+                <section className="py-24 px-6 lg:px-8 bg-[url('/assets/images/newsletter_bg.png')] bg-cover bg-center border-t border-purple-500/10 relative">
+                    <div className="absolute inset-0 bg-[#1A0B2E]/80"></div>
+                    <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8">
                         <h2 className="text-3xl md:text-5xl font-display font-light text-white">Suscríbete para recibir <br /> <span className="font-bold italic text-accent-gold">luz en tu bandeja</span></h2>
                         <p className="text-purple-300 font-light font-body">Recibe meditaciones exclusivas, descuentos lunares y novedades del santuario.</p>
                         <form className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto bg-purple-500/5 p-2 rounded-full border border-purple-500/20 backdrop-blur-md">
@@ -391,7 +395,7 @@ const Home: React.FC = () => {
     );
 };
 
-const ServiceCardSimple: React.FC<{ image: string, title: string, desc: string }> = ({ image, title, desc }) => (
+const ServiceCardSimple: React.FC<{ image: string, title: string, desc: string, link: string }> = ({ image, title, desc, link }) => (
     <div className="group bg-card-purple rounded-[2.5rem] overflow-hidden border border-purple-500/10 flex flex-col h-full hover:border-purple-500/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-900/20">
         <div className="aspect-[4/3] overflow-hidden relative">
             <img src={image} alt={title} className="w-full h-full object-cover transition duration-700 group-hover:scale-110" />
@@ -400,7 +404,7 @@ const ServiceCardSimple: React.FC<{ image: string, title: string, desc: string }
         <div className="p-10 flex flex-col flex-1 text-center relative">
             <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors font-display">{title}</h3>
             <p className="text-purple-200/70 font-light leading-relaxed mb-8 flex-1 font-body">{desc}</p>
-            <Link to="/services" className="inline-block py-3 px-8 bg-purple-500/10 border border-purple-500/20 text-white rounded-full font-bold hover:bg-accent-gold hover:text-deep-purple transition-all font-body text-sm uppercase tracking-wider">
+            <Link to={link} className="inline-block py-3 px-8 bg-purple-500/10 border border-purple-500/20 text-white rounded-full font-bold hover:bg-accent-gold hover:text-deep-purple transition-all font-body text-sm uppercase tracking-wider">
                 Ver más
             </Link>
         </div>

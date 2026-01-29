@@ -11,7 +11,7 @@ const Checkout: React.FC = () => {
     const navigate = useNavigate();
     const { cart, totalPrice, totalOriginalPrice, totalDiscount, clearCart } = useCart();
     const { addOrder } = useUser();
-    
+
     const [currentStep, setCurrentStep] = useState(0);
     const [formData, setFormData] = useState({
         firstName: '', lastName: '', email: '', phone: '',
@@ -21,7 +21,7 @@ const Checkout: React.FC = () => {
 
     const [orderId, setOrderId] = useState<string>('');
 
-    const shippingCost = totalPrice > 75 ? 0 : 5.00;
+    const shippingCost = totalPrice > 300 ? 0 : 15.00;
     const finalTotal = totalPrice + shippingCost;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -40,7 +40,7 @@ const Checkout: React.FC = () => {
         // Simulate processing
         const newOrderId = `ORD-${Math.floor(Math.random() * 100000)}`;
         setOrderId(newOrderId);
-        
+
         const newOrder: Order = {
             id: newOrderId,
             date: new Date().toLocaleDateString(),
@@ -67,15 +67,14 @@ const Checkout: React.FC = () => {
     return (
         <div className="pt-24 pb-20 min-h-screen text-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                
+
                 {/* Steps Indicator */}
                 <div className="flex justify-center mb-12">
                     <div className="flex items-center gap-4">
                         {steps.map((step, idx) => (
                             <div key={idx} className="flex items-center">
-                                <div className={`flex items-center justify-center size-8 rounded-full text-xs font-bold ${
-                                    idx <= currentStep ? 'bg-accent-gold text-deep-purple' : 'bg-purple-500/10 text-purple-400'
-                                }`}>
+                                <div className={`flex items-center justify-center size-8 rounded-full text-xs font-bold ${idx <= currentStep ? 'bg-accent-gold text-deep-purple' : 'bg-purple-500/10 text-purple-400'
+                                    }`}>
                                     {idx + 1}
                                 </div>
                                 <span className={`ml-2 text-sm ${idx <= currentStep ? 'text-white' : 'text-purple-400'} hidden sm:block font-body`}>{step}</span>
@@ -188,7 +187,7 @@ const Checkout: React.FC = () => {
                                 ) : (
                                     <div></div>
                                 )}
-                                <button 
+                                <button
                                     onClick={currentStep === 2 ? handlePlaceOrder : nextStep}
                                     className="bg-gold-gradient hover:scale-105 text-deep-purple px-8 py-3 rounded-full font-bold shadow-lg transition flex items-center gap-2"
                                 >
@@ -227,21 +226,21 @@ const Checkout: React.FC = () => {
                                 <div className="space-y-2 text-sm text-purple-300 border-t border-purple-500/10 pt-4 font-body">
                                     <div className="flex justify-between">
                                         <span>Subtotal (Precio Original)</span>
-                                        <span>${totalOriginalPrice.toFixed(2)}</span>
+                                        <span>S/ {totalOriginalPrice.toFixed(2)}</span>
                                     </div>
                                     {totalDiscount > 0 && (
                                         <div className="flex justify-between text-green-300">
                                             <span>Descuentos</span>
-                                            <span>-${totalDiscount.toFixed(2)}</span>
+                                            <span>-S/ {totalDiscount.toFixed(2)}</span>
                                         </div>
                                     )}
                                     <div className="flex justify-between">
                                         <span>Envío</span>
-                                        <span>{shippingCost === 0 ? "Gratis" : `$${shippingCost.toFixed(2)}`}</span>
+                                        <span>{shippingCost === 0 ? "Gratis" : `S/ ${shippingCost.toFixed(2)}`}</span>
                                     </div>
                                     <div className="flex justify-between text-white font-bold text-lg pt-2">
                                         <span>Total Final</span>
-                                        <span className="text-accent-gold">${finalTotal.toFixed(2)}</span>
+                                        <span className="text-accent-gold">S/ {finalTotal.toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>

@@ -20,7 +20,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 // Helper to parse string price to number (e.g., "$35.00" -> 35.00)
 const parsePrice = (priceStr: string): number => {
-    const num = parseFloat(priceStr.replace('$', '').replace(',', ''));
+    const num = parseFloat(priceStr.replace('S/', '').replace(',', '').trim());
     return isNaN(num) ? 0 : num;
 };
 
@@ -49,10 +49,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setCart(prev => {
             const existing = prev.find(item => item.id === product.id && item.selectedVariant === variant);
             if (existing) {
-                return prev.map(item => 
+                return prev.map(item =>
                     (item.id === product.id && item.selectedVariant === variant)
-                    ? { ...item, quantity: item.quantity + 1 } 
-                    : item
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
                 );
             }
             return [...prev, { ...product, quantity: 1, selectedVariant: variant }];
@@ -77,7 +77,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const clearCart = () => setCart([]);
 
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
+
     const totalPrice = cart.reduce((sum, item) => {
         return sum + (parsePrice(item.price) * item.quantity);
     }, 0);
