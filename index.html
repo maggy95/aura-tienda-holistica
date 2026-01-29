@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Aura - Tu Refugio Digital</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <!-- Reverting to Lexend and Manrope for original premium identity -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d8b4fe", // Light purple for text highlights
+                        "primary-hover": "#c084fc",
+                        "accent-gold": "#FCD34D", // Gold for CTAs
+                        "accent-gold-hover": "#F59E0B",
+                        "deep-purple": "#11001C", // Darkest background
+                        "purple-section": "#1A0B2E", // Alternating sections
+                        "card-purple": "rgba(43, 18, 76, 0.4)", // Glassy cards
+                        "text-main": "#F3E8FF", // Warm white/lilac
+                        "text-muted": "#D8B4FE", // Muted lilac
+                        "deep-black": "#11001C", // Backwards compatibility variable mapped to dark purple
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"], // Restored Identity
+                        "body": ["Manrope", "sans-serif"] // Restored Identity
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    backgroundImage: {
+                        'aura-gradient': 'linear-gradient(180deg, #240b36 0%, #11001C 100%)',
+                        'gold-gradient': 'linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)',
+                        'card-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #240b36, #0f0518);
+            background-attachment: fixed;
+            color: #F3E8FF;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-effect {
+            background: rgba(43, 18, 76, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(216, 180, 254, 0.1);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(216, 180, 254, 0.1);
+        }
+        .text-glow { text-shadow: 0 0 20px rgba(216, 180, 254, 0.3); }
+        
+        /* Gold Text Gradient */
+        .text-gold {
+            background: linear-gradient(to right, #FCD34D, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        /* Custom Scrollbar for the purple theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #11001C; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4c1d95; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6d28d9; 
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="text-text-main font-display overflow-x-hidden selection:bg-accent-gold selection:text-deep-purple">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
