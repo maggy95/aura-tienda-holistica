@@ -54,18 +54,18 @@ const Home: React.FC = () => {
     }, [isDragging]);
 
     const zodiacSigns = [
-        { name: 'Aries', icon: '♈', slug: 'aries', dates: 'Mar 21 - Abr 19' },
-        { name: 'Tauro', icon: '♉', slug: 'tauro', dates: 'Abr 20 - May 20' },
-        { name: 'Géminis', icon: '♊', slug: 'geminis', dates: 'May 21 - Jun 20' },
-        { name: 'Cáncer', icon: '♋', slug: 'cancer', dates: 'Jun 21 - Jul 22' },
-        { name: 'Leo', icon: '♌', slug: 'leo', dates: 'Jul 23 - Ago 22' },
-        { name: 'Virgo', icon: '♍', slug: 'virgo', dates: 'Ago 23 - Sep 22' },
-        { name: 'Libra', icon: '♎', slug: 'libra', dates: 'Sep 23 - Oct 22' },
-        { name: 'Escorpio', icon: '♏', slug: 'escorpio', dates: 'Oct 23 - Nov 21' },
-        { name: 'Sagitario', icon: '♐', slug: 'sagitario', dates: 'Nov 22 - Dic 21' },
-        { name: 'Capricornio', icon: '♑', slug: 'capricornio', dates: 'Dic 22 - Ene 19' },
-        { name: 'Acuario', icon: '♒', slug: 'acuario', dates: 'Ene 20 - Feb 18' },
-        { name: 'Piscis', icon: '♓', slug: 'piscis', dates: 'Feb 19 - Mar 20' },
+        { name: 'Aries', image: '/assets/images/zodiac/aries.png', slug: 'aries', dates: 'Mar 21 - Abr 19' },
+        { name: 'Tauro', image: '/assets/images/zodiac/taurus.png', slug: 'tauro', dates: 'Abr 20 - May 20' },
+        { name: 'Géminis', image: '/assets/images/zodiac/gemini.png', slug: 'geminis', dates: 'May 21 - Jun 20' },
+        { name: 'Cáncer', image: '/assets/images/zodiac/cancer.png', slug: 'cancer', dates: 'Jun 21 - Jul 22' },
+        { name: 'Leo', image: '/assets/images/zodiac/leo.png', slug: 'leo', dates: 'Jul 23 - Ago 22' },
+        { name: 'Virgo', image: '/assets/images/zodiac/virgo.png', slug: 'virgo', dates: 'Ago 23 - Sep 22' },
+        { name: 'Libra', image: '/assets/images/zodiac/libra.png', slug: 'libra', dates: 'Sep 23 - Oct 22' },
+        { name: 'Escorpio', image: '/assets/images/zodiac/scorpio.png', slug: 'escorpio', dates: 'Oct 23 - Nov 21' },
+        { name: 'Sagitario', image: '/assets/images/zodiac/sagittarius.png', slug: 'sagitario', dates: 'Nov 22 - Dic 21' },
+        { name: 'Capricornio', image: '/assets/images/zodiac/capricorn.png', slug: 'capricornio', dates: 'Dic 22 - Ene 19' },
+        { name: 'Acuario', image: '/assets/images/zodiac/aquarius.png', slug: 'acuario', dates: 'Ene 20 - Feb 18' },
+        { name: 'Piscis', image: '/assets/images/zodiac/pisces.png', slug: 'piscis', dates: 'Feb 19 - Mar 20' },
     ];
 
     return (
@@ -166,14 +166,18 @@ const Home: React.FC = () => {
                                 <Link
                                     to={`/zodiac/${sign.slug}`}
                                     key={sign.name}
-                                    className="group flex flex-col items-center justify-center p-6 transition-all duration-300 hover:-translate-y-2"
+                                    className="group flex flex-col items-center justify-center p-6 transition-all duration-300 hover:scale-[1.03]"
                                 >
-                                    <div className="relative size-20 md:size-24 mb-4 rounded-full bg-purple-900/30 border border-purple-500/20 group-hover:border-accent-gold/60 group-hover:bg-purple-900/50 group-hover:shadow-[0_0_20px_rgba(252,211,77,0.2)] transition-all flex items-center justify-center backdrop-blur-sm">
-                                        <span className="text-4xl md:text-5xl text-accent-gold drop-shadow-lg transform group-hover:scale-110 transition-transform duration-300">{sign.icon}</span>
-                                        <div className="absolute inset-0 rounded-full border border-white/5 group-hover:border-white/10 scale-110 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                                    <div className="relative size-20 md:size-24 mb-4 rounded-full bg-[#1A0B2E] border border-purple-500/20 group-hover:border-accent-gold/40 shadow-[0_4px_20px_rgba(0,0,0,0.3)] group-hover:shadow-[0_0_25px_rgba(252,211,77,0.15)] transition-all flex items-center justify-center overflow-hidden">
+                                        <img
+                                            src={sign.image}
+                                            alt={sign.name}
+                                            className="w-full h-full object-cover p-1 opacity-90 group-hover:opacity-100 transition-opacity"
+                                        />
+                                        <div className="absolute inset-0 rounded-full border border-white/5 group-hover:border-accent-gold/20 transition-all duration-500"></div>
                                     </div>
-                                    <h3 className="text-white font-bold text-lg font-display tracking-wide group-hover:text-accent-gold transition-colors">{sign.name}</h3>
-                                    <p className="text-[10px] text-purple-400/60 uppercase tracking-widest font-body opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">{sign.dates}</p>
+                                    <h3 className="text-white text-lg tracking-wider group-hover:text-accent-gold transition-colors" style={{ fontFamily: 'Cinzel, serif' }}>{sign.name}</h3>
+                                    <p className="text-[10px] text-purple-400/60 uppercase tracking-[0.2em] font-body mt-1">{sign.dates}</p>
                                 </Link>
                             ))}
                         </div>
