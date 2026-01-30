@@ -2,7 +2,7 @@ import { GoogleGenAI, Chat } from "@google/genai";
 
 // We create instances on demand to ensure we pick up the latest API key if the user switches it.
 const getAIClient = () => {
-  return new GoogleGenAI({ apiKey: process.env.API_KEY });
+  return new GoogleGenAI({ apiKey: import.meta.env.VITE_GOOGLE_API_KEY });
 };
 
 export const createChatSession = (): Chat => {
@@ -53,5 +53,5 @@ export const generateVeoVideo = async (
     }
 
     // Return the URL with the API key appended for playback
-    return `${videoUri}&key=${process.env.API_KEY}`;
+    return `${videoUri}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
 };
